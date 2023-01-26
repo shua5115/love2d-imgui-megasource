@@ -15,6 +15,7 @@
 #include <AL/al.h>
 #include <AL/alext.h>
 #include <modplug.h>
+#include <imgui.h>
 
 extern "C" {
 #	include "lua.h"
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
 	vfunc zlib = [](strs &c, strs &l)
 	{
 		c << ZLIB_VERSION;
-		l << zlibVersion();
+		l << ZLIB_VERSION; // changed to avoid intellisense bugging me, the function just returns this anyway
 		return "zlib";
 	};
 
@@ -122,6 +123,14 @@ int main(int argc, char **argv)
 		return "modplug";
 	};
 
+	vfunc imgui = [](strs &c, strs &l)
+	{
+		const char* ver = ImGui::GetVersion();
+		c << ver;
+		l << ver;
+		return "imgui";
+	};
+
 	std::vector<vfunc> funcs;
 	funcs.push_back(zlib);
 	funcs.push_back(lua);
@@ -133,6 +142,7 @@ int main(int argc, char **argv)
 	funcs.push_back(SDL2);
 	funcs.push_back(OpenAL);
 	funcs.push_back(modplug);
+	funcs.push_back(imgui);
 
 	for (size_t i = 0; i < funcs.size(); ++i)
 	{
@@ -142,5 +152,5 @@ int main(int argc, char **argv)
 		std::cout << "-- " << pad(name) << "   compiled: " << pad(c.str(), 7) << "   linked: " << pad(l.str(), 7) << std::endl;
 	}
 
-	return getchar();
+	return EXIT_SUCCESS;
 }

@@ -164,7 +164,8 @@ if(MSVC)
 	set(MEGA_MSVC_DLLS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS})
 endif()
 
-
+# Specify version information for each library
+# This is used to find the correct directory in the libs folder
 set(MEGA_ZLIB_VER "1.2.12")
 set(MEGA_LUA51_VER "5.1.5")
 set(MEGA_LUAJIT_VER "2.1.0-7306ba7")
@@ -176,6 +177,7 @@ set(MEGA_FREETYPE_VER "2.8.1")
 set(MEGA_SDL2_VER "2.0.20")
 set(MEGA_OPENAL_VER "1.19.1")
 set(MEGA_MODPLUG_VER "0.8.8.4")
+set(MEGA_IMGUI_VER "1.89.2")
 
 set(SKIP_INSTALL_ALL TRUE)
 
@@ -247,6 +249,12 @@ message(STATUS "-----------------------------------------------------")
 add_subdirectory("libs/libmodplug-${MEGA_MODPLUG_VER}" ${CMAKE_BINARY_DIR}/libmodplug)
 set(MEGA_MODPLUG modplug-static)
 
+message(STATUS "-----------------------------------------------------")
+message(STATUS "Configuring: imgui ${MEGA_IMGUI_VER}")
+message(STATUS "-----------------------------------------------------")
+add_subdirectory("libs/imgui-${MEGA_IMGUI_VER}" ${CMAKE_BINARY_DIR}/imgui)
+set(MEGA_IMGUI imgui-static)
+
 # LuaJIT
 if(MSVC)
 	message(STATUS "-----------------------------------------------------")
@@ -299,6 +307,7 @@ set(MEGA_3P
 	${MEGA_SDL2MAIN}
 	${MEGA_OPENAL}
 	${MEGA_MODPLUG}
+	${MEGA_IMGUI}
 )
 
 # Set to directory of love source. Defaults to ./libs/love.
