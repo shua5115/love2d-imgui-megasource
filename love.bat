@@ -1,0 +1,1 @@
+.\build\love\Debug\love.exe %*
