@@ -3,7 +3,7 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 	message(FATAL_ERROR "Prevented in-tree build.")
 endif()
 
-set(CMAKE_WARN_DEPRECATED OFF)
+set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 cmake_minimum_required(VERSION 3.1)
 
 include(ExternalProject)
